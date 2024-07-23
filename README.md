@@ -15,7 +15,7 @@ The project uses hyperparameter tuning and model comparison techniques to enhanc
 ## Running the Project
 To execute the project, run the 'cifake-train-evaluate-models.ipynb' notebook. This notebook contains the necessary code to train and evaluate the models. 
 
-## References: 
+## References
 
 Real images: Krizhevsky, A., & Hinton, G. (2009). Learning multiple layers of features from tiny images.
 Fake images: Bird, J.J. and Lotfi, A., 2024. CIFAKE: Image Classification and Explainable Identification of AI-Generated Synthetic Images. IEEE Access.
