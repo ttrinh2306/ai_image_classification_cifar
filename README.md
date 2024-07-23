@@ -1,7 +1,7 @@
 # Image Classification project: Real vs. AI-Generated Synthetic Images
 ## Project Overview
 
-In this project, I leveraged convolutional neural networks (CNNs) to differentiate between real and AI-generated synthetic images. This project highlights my skills in data preprocessing, model building, hyperparameter tuning, and model evaluation using Python (Keras & Tensorflow). 
+For this project, I leveraged convolutional neural networks (CNNs) to differentiate between real and AI-generated synthetic images. This project highlights my skills in data preprocessing, model building, hyperparameter tuning, and model evaluation using Python (Keras & Tensorflow). 
 
 The implementation uses class-based Python coding to stream various tasks:
 
