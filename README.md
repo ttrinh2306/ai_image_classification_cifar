@@ -1,13 +1,15 @@
 # Image Classification project: Real vs. AI-Generated Synthetic Images
 ## Project Overview
 
-In this project, I built convolutional neural networks (CNNs) to classify images as either real or AI-generated. The implementation uses class-based Python coding to stream various tasks:
+In this project, I leveraged convolutional neural networks (CNNs) to differentiate between real and AI-generated synthetic images. This project highlights my skills in data preprocessing, model building, hyperparameter tuning, and model evaluation using Python (Keras & Tensorflow). 
 
-1) **Sourcing images**. The 'Images' class is used to source and organize images'.
-2) **Preprocessing images**. The 'Preprocess' class is used to preprocess images and create data generators.
-3) **Defining model architecture**. The 'CNN_model' class is used to define, compile, and train CNN models.
+The implementation uses class-based Python coding to stream various tasks:
+
+1) **Sourcing images**. The **'Images'** class is used to source and organize images'.
+2) **Preprocessing images**. The **'Preprocess'** class is used to preprocess images and create data generators.
+3) **Defining model architecture**. The **'CNN_model'** class is used to define, compile, and train CNN models.
 4) **Training & saving models**.
-5) **Evaluating models**. 'The 'Evaluate_model' class is used to load and evaluate the trained models.
+5) **Evaluating models**. 'The **'Evaluate_model'** class is used to load and evaluate the trained models.
 
 ## Methodology
 The project uses hyperparameter tuning and model comparison techniques to enhance model performance. Different models were trained with slight variations in their configurations to identify the best hyperparameters.
