@@ -1,13 +1,14 @@
 import yaml
+import os
 
 base_dict = {
     'info':
         {'model_name': 'base',
-        'train_dir': '/kaggle/working/cifake/train',
-        'test_dir': '/kaggle/working/cifake/test',
-        'validation_dir': '/kaggle/working/cifake/validation',
-        'model_filepath': '/kaggle/working/cifake/cifake_base.h5',
-        'history_filepath': '/kaggled/working/saved_models/history_cifake_base.pkl',
+        'train_dir': '../input/images/train',
+        'test_dir': '../input/images/test',
+        'validation_dir': '../input/images/validation',
+        'model_filepath': '../output/cifake_base.h5',
+        'history_filepath': '../output/history_cifake_base.pkl',
         'classes': ['REAL', 'FAKE']},
 
     'generators':
@@ -75,7 +76,7 @@ for layer in sigmoid_dict['conv_layers']:
     layer['activation'] = 'sigmoid'
 
 # Write the updated dictionary to the new YAML file
-with open('/kaggle/working/input/sigmoid_dict.yaml', 'w') as file:
+with open('../input/sigmoid_dict.yaml', 'w') as file:
     yaml.dump(sigmoid_dict, file)
 
 #Epoch---
@@ -83,7 +84,7 @@ epoch_dict = base_dict.copy()
 
 epoch_dict['model']['epochs'] = 30
 
-with open('/kaggle/working/input/epoch_dict.yaml', 'w') as file:
+with open('../input/epoch_dict.yaml', 'w') as file:
     yaml.dump(epoch_dict, file)
 
 #SGD---
@@ -91,7 +92,7 @@ sgd_dict = base_dict.copy()
 
 sgd_dict['model']['optimizer'] = 'SGD'
 
-with open('/kaggle/working/input/epoch_dict.yaml', 'w') as file:
+with open('../input/sgd_dict.yaml', 'w') as file:
     yaml.dump(sgd_dict, file)
 
 #ValSteps---
@@ -99,5 +100,5 @@ val_dict = base_dict.copy()
 
 val_dict['model']['validation_steps'] = 100
 
-with open('/kaggle/working/input/val_dict.yaml', 'w') as file:
+with open('../input/val_dict.yaml', 'w') as file:
     yaml.dump(val_dict, file)
