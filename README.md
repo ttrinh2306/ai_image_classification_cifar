@@ -11,6 +11,9 @@ I have structured the code using Python classes, each dedicated to specific task
 4) **Model Saving**. After training, models are saved in .h5 format for future use and comparison.
 5) **Model Evaluation**. 'The **'Evaluate_model'** class is used to load trained models, evaluate their performance on the test dataset, and compare metrics.
 
+## Input Data
+800 images for the training set, 735 images for the validation set, and 1000 images for the testing set.
+
 ## Methodology
 The project employs a systematic approach to model training and comparison through hyperparameter tuning. I started by training a base model and subsequently changed key hyperparameters such as the optimizer, activation functions, and the number of epochs. The models and configurations used in this project are as follows:
 
@@ -28,7 +31,7 @@ The project employs a systematic approach to model training and comparison throu
 ### Configuration Management with YAML
 To streamline model configuration and training, I created YAML configuration files for each model. The parameters for each model (e.g., optimizer, epochs, activation function) are stored in individual YAML files, which are then loaded into the training script. This approach enables easy experimentation with different configurations and keeps the codebase clean and maintainable.
 
-The create_yaml_files.py script is used to generate these YAML configuration files, allowing for seamless updates to model parameters without modifying the main code.
+The **create_yaml_files.py** script is used to generate these YAML configuration files, allowing for seamless updates to model parameters without modifying the main code.
 
 ## Running the Project
 To execute the project, follow these steps:
@@ -38,7 +41,7 @@ To execute the project, follow these steps:
 ```bash
 pip install -r requirements.txt
 ```
-3) Open and run the cifake-train-evaluate-models.ipynb notebook. This notebook walks through the entire process:
+3) Open and run the **train_evaluate_compare_cnn_models_image_classification.ipynb** notebook. This notebook walks through the entire process:
   * Step 1: Generate YAML files for each model using the create_yaml_files.py script.
   * Step 2: Create training, validation, and testing datasets from the sourced images.
   * Step 3: Train and evaluate the models, comparing performance across different configurations.
