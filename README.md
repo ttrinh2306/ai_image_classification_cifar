@@ -11,6 +11,9 @@ I have structured the code using Python classes, each dedicated to specific task
 4) **Model Saving**. After training, models are saved in .h5 format for future use and comparison.
 5) **Model Evaluation**. 'The **'Evaluate_model'** class is used to load trained models, evaluate their performance on the test dataset, and compare metrics.
 
+## Input Data
+800 images for the training set, 735 images for the validation set, and 1000 images for the testing set.
+
 ## Methodology
 The project employs a systematic approach to model training and comparison through hyperparameter tuning. I started by training a base model and subsequently changed key hyperparameters such as the optimizer, activation functions, and the number of epochs. The models and configurations used in this project are as follows:
 
