@@ -27,7 +27,7 @@ import pickle
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_curve, auc
 import seaborn as sns
 
-from functions import *
+import functions
 
 import yaml
 import os

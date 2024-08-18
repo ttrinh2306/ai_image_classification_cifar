@@ -93,3 +93,30 @@ def calc_roc_curve(n_classes, y_true, y_pred, fig_name):
     output_path = '/kaggle/working/output/model_metrics/'
     os.makedirs(output_path, exist_ok=True)
     fig.savefig(output_path + 'ROC_' + fig_name +'.png')
+
+#%% Function to run evaluation of the models
+def run_eval(test_generator, **mdict):
+    model = load_model(mdict['info']['model_filepath'])
+    with open(mdict['info']['history_filepath'], 'rb') as file:
+        history = pickle.load(file)
+
+    model_eval = Evaluate_model(test_generator)
+    model_eval.calc_metrics(model, mdict['info']['model_name'])
+    model_eval.add_history(history, mdict['info']['model_name'])
+    model_eval.plot_confusion_matrix(model, mdict['info']['model_name'])
+    model_eval.plot_roc_curve(model, mdict['info']['model_name'])
+
+    return model_eval.histories, model_eval.history_names, model_eval.get_metrics_dataframe()
+
+#%% Function to plot all model histories
+def plot_histories(metrics, histories, history_names):
+    for metric in metrics:
+        fig_name = f'fig_{metric}'
+        fig = plt.figure()
+        for history, name in zip(histories, history_names):
+            plt.plot(history[metric], label = name)
+        plt.title(f'{metric.capitalize()} Across Models')
+        plt.xlabel('Epoch')
+        plt.ylabel(metric.capitalize())
+        plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        fig.show()
