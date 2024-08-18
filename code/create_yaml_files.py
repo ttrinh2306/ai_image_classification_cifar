@@ -1,35 +1,67 @@
 import yaml
 import os
+import copy
 
+def update_dict(base_dict, updates, output_filename):
+    """
+    Update the base dictionary with the provided updates and save it to the specified output file.
+    
+    Parameters:
+    - base_dict: The base dictionary to be updated.
+    - updates: A dictionary containing the updates to be applied.
+    - output_filename: The filename for the updated YAML file.
+    """
+    updated_dict = copy.deepcopy(base_dict)  # Make a deep copy to avoid modifying the original base_dict
+
+    for key, value in updates.items():
+        if key == 'conv_layers' and isinstance(value, dict) and 'activation' in value:
+            # Special handling for updating activation in conv_layers
+            for layer in updated_dict['conv_layers']:
+                layer['activation'] = value['activation']
+        elif isinstance(value, dict) and isinstance(updated_dict.get(key), dict):
+            updated_dict[key].update(value)
+        elif isinstance(value, list) and isinstance(updated_dict.get(key), list):
+            updated_dict[key] = value
+        else:
+            updated_dict[key] = value
+    
+    # Save the updated dictionary to a YAML file
+    with open(output_filename, 'w') as file:
+        yaml.dump(updated_dict, file)
+
+# Base dictionary
 base_dict = {
-    'info':
-        {'model_name': 'base',
+    'info': {
+        'model_name': 'base',
         'train_dir': '../input/images/train',
         'test_dir': '../input/images/test',
         'validation_dir': '../input/images/validation',
         'model_filepath': '../output/cifake_base.h5',
         'history_filepath': '../output/history_cifake_base.pkl',
-        'classes': ['REAL', 'FAKE']},
-
-    'generators':
-        {'rescale': 1./255, 
+        'classes': ['REAL', 'FAKE']
+    },
+    'preprocess': {
+        'resize': (224, 224),
+        'normalize': 255
+    },
+    'generators': {
+        'rescale': 1./255, 
         'rotation_range': 40, 
         'width_shift_range': 0.2,
         'height_shift_range': 0.2, 
         'shear_range': 0.2, 
         'zoom_range': 0.2,
-        'fill_mode': 'nearest'},
-
-    'model':
-        {'optimizer': 'adam',
-        'steps_per_epoch': 100,
+        'fill_mode': 'nearest'
+    },
+    'model': {
+        'optimizer': 'adam',
+        'steps_per_epoch': 25,
         'epochs': 20,
-        'validation_steps': 50,
+        'validation_steps': 23,
         'dropout': 0.5, 
         'loss': 'categorical_crossentropy', 
         'metrics': ['accuracy']
-        },
-
+    },
     'conv_layers': [
         {'filters': 32, 
          'kernel_size': [3, 3], 
@@ -41,20 +73,9 @@ base_dict = {
          'activation': 'relu',
          'input_shape': [224, 224, 3]}
     ],
-
-    'maxpool_layers':
-        {'pool_size': [2,2]
-         },
-
-    'dense_layers':
-        {'units': 512,
-         'activation': 'relu'
-        },
-
-    'output_layer':
-        {'units' : 2,
-         'activation': 'softmax'
-        }
+    'maxpool_layers': {'pool_size': [2, 2]},
+    'dense_layers': {'units': 512, 'activation': 'relu'},
+    'output_layer': {'units': 2, 'activation': 'softmax'}
 }
 
 new_folder_path = '../input'
@@ -64,41 +85,44 @@ if not os.path.exists(new_folder_path):
 
 with open('../input/base_dict.yaml', 'w') as file:
     yaml.dump(base_dict, file)
-    
-with open('../input/base_dict.yaml', 'r') as file:
-    base_dict = yaml.safe_load(file)
 
-# Create other YAML files ---
-#Sigmoid
-sigmoid_dict = base_dict.copy()
+# Define updates for each new dictionary
+updates_sigmoid = {
+    'info': {
+        'model_name': 'sigmoid',
+        'model_filepath': '../output/cifake_sigmoid.h5',
+        'history_filepath': '../output/history_cifake_sigmoid.pkl'
+    },
+    'conv_layers': {
+        'activation': 'sigmoid'
+    }
+}
 
-for layer in sigmoid_dict['conv_layers']:
-    layer['activation'] = 'sigmoid'
+updates_epoch = {
+    'info': {'model_name': 'epoch',
+             'model_filepath': '../output/cifake_epoch.h5',
+             'history_filepath': '../output/history_cifake_epoch.pkl'}, 
+    'model': {'epochs': 10}
+}
 
-# Write the updated dictionary to the new YAML file
-with open('../input/sigmoid_dict.yaml', 'w') as file:
-    yaml.dump(sigmoid_dict, file)
+updates_sgd = {
+    'info': {'model_name': 'sgd',
+             'model_filepath': '../output/cifake_sgd.h5',
+             'history_filepath': '../output/history_cifake_sgd.pkl'}, 
+    'model': {'optimizer': 'SGD'}
+}
 
-#Epoch---
-epoch_dict = base_dict.copy()
+updates_val_steps = {
+    'info': {'model_name': 'val',
+             'model_filepath': '../output/cifake_val.h5',
+             'history_filepath': '../output/history_cifake_val.pkl'}, 
+    'model': {'validation_steps': 10}
+}
 
-epoch_dict['model']['epochs'] = 30
+# Update and save new dictionaries
+update_dict(base_dict, updates_sigmoid, '../input/sigmoid_dict.yaml')
+update_dict(base_dict, updates_epoch, '../input/epoch_dict.yaml')
+update_dict(base_dict, updates_sgd, '../input/sgd_dict.yaml')
+update_dict(base_dict, updates_val_steps, '../input/val_dict.yaml')
 
-with open('../input/epoch_dict.yaml', 'w') as file:
-    yaml.dump(epoch_dict, file)
-
-#SGD---
-sgd_dict = base_dict.copy()
-
-sgd_dict['model']['optimizer'] = 'SGD'
-
-with open('../input/sgd_dict.yaml', 'w') as file:
-    yaml.dump(sgd_dict, file)
-
-#ValSteps---
-val_dict = base_dict.copy()
-
-val_dict['model']['validation_steps'] = 100
-
-with open('../input/val_dict.yaml', 'w') as file:
-    yaml.dump(val_dict, file)
+print("Dictionaries updated and saved.")

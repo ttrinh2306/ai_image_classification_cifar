@@ -1,0 +1,56 @@
+conv_layers:
+- activation: sigmoid
+  filters: 32
+  input_shape:
+  - 224
+  - 224
+  - 3
+  kernel_size:
+  - 3
+  - 3
+- activation: sigmoid
+  filters: 32
+  input_shape:
+  - 224
+  - 224
+  - 3
+  kernel_size:
+  - 3
+  - 3
+dense_layers:
+  activation: relu
+  units: 512
+generators:
+  fill_mode: nearest
+  height_shift_range: 0.2
+  rescale: 0.00392156862745098
+  rotation_range: 40
+  shear_range: 0.2
+  width_shift_range: 0.2
+  zoom_range: 0.2
+info:
+  classes:
+  - REAL
+  - FAKE
+  history_filepath: ../output/history_cifake_base.pkl
+  model_filepath: ../output/cifake_base.h5
+  model_name: base
+  test_dir: ../input/images/test
+  train_dir: ../input/images/train
+  validation_dir: ../input/images/validation
+maxpool_layers:
+  pool_size:
+  - 2
+  - 2
+model:
+  dropout: 0.5
+  epochs: 20
+  loss: categorical_crossentropy
+  metrics:
+  - accuracy
+  optimizer: adam
+  steps_per_epoch: 100
+  validation_steps: 50
+output_layer:
+  activation: softmax
+  units: 2
