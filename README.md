@@ -15,6 +15,7 @@ I have structured the code using Python classes, each dedicated to specific task
 800 images for the training set, 735 images for the validation set, and 1000 images for the testing set.
 
 ## Methodology
+**train_evaluate_compare_cnn_models_image-classification.ipynb**
 The project employs a systematic approach to model training and comparison through hyperparameter tuning. I started by training a base model and subsequently changed key hyperparameters such as the optimizer, activation functions, and the number of epochs. The models and configurations used in this project are as follows:
 
 1) **Base**.
@@ -32,6 +33,9 @@ The project employs a systematic approach to model training and comparison throu
 To streamline model configuration and training, I created YAML configuration files for each model. The parameters for each model (e.g., optimizer, epochs, activation function) are stored in individual YAML files, which are then loaded into the training script. This approach enables easy experimentation with different configurations and keeps the codebase clean and maintainable.
 
 The **create_yaml_files.py** script is used to generate these YAML configuration files, allowing for seamless updates to model parameters without modifying the main code.
+
+**train_evaluate_compare_cnn_models_image-classification.ipynb**
+In the second part of the project, I use transfer learning to take the layers from a previously trained model, Mobile Net V2 from Google, and add trainable layers on top. I then fine tune the model, which requires unfreezing the later layers of the model and retraining with the image data. 
 
 ## Running the Project
 To execute the project, follow these steps:
