@@ -119,10 +119,22 @@ updates_val_steps = {
     'model': {'validation_steps': 10}
 }
 
+updates_transfer_learning = {
+    'info': {'model_name': 'tf',
+             'model_filepath': '../output/cifake_tf.h5',
+             'history_filepath': '../output/history_cifake_tf.pkl'},
+    'transfer_learning': {'learning_rate: 0.001',
+                          'initial_epochs': 10, 
+                          'loss': 'categorical_crossentropy',
+                          'optimizer':  'adam',
+                          'metrics': ['accuracy']}
+}
+
 # Update and save new dictionaries
 update_dict(base_dict, updates_sigmoid, '../input/sigmoid_dict.yaml')
 update_dict(base_dict, updates_epoch, '../input/epoch_dict.yaml')
 update_dict(base_dict, updates_sgd, '../input/sgd_dict.yaml')
 update_dict(base_dict, updates_val_steps, '../input/val_dict.yaml')
+update_date(base_dict, updates_transfer_learning, '../input/base_tl_dict.yaml')
 
 print("Dictionaries updated and saved.")
