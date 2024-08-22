@@ -41,7 +41,7 @@ base_dict = {
         'classes': ['REAL', 'FAKE']
     },
     'preprocess': {
-        'resize': (224, 224),
+        'resize': [224, 224],
         'normalize': 255
     },
     'generators': {
@@ -122,12 +122,31 @@ updates_val_steps = {
 updates_transfer_learning = {
     'info': {'model_name': 'tf',
              'model_filepath': '../output/cifake_tf.h5',
-             'history_filepath': '../output/history_cifake_tf.pkl'},
-    'transfer_learning': {'learning_rate: 0.001',
+             'finetune_filepath': '../output/cifake_tf_ft.h5',
+             'history_filepath': '../output/history_cifake_tf.pkl',
+             'finetune_history_filepath': '../output/history_cifake_tf_ft.pkl'
+    },
+    'transfer_learning': {'learning_rate': 0.001,
                           'initial_epochs': 10, 
-                          'loss': 'categorical_crossentropy',
-                          'optimizer':  'adam',
-                          'metrics': ['accuracy']}
+                          'loss': 'BinaryCrossentropy',
+                          'optimizer':  'Adam',
+                          'metrics':
+                              {'name': 'BinaryAccuracy', 
+                              'params': {
+                                  'threshold': 0.5,
+                                  'name': 'accuracy'
+                              }}},
+    'fine_tuning': {'fine_tune_at': 100,
+                    'loss': 'BinaryCrossentropy',
+                    'optimizer': 'RMSprop',
+                    'learning_rate': 0.001,
+                    'fine_tune_epochs': 10,
+                    'metrics': 
+                        {'name': 'BinaryAccuracy',
+                        'params': {
+                            'name': 'accuracy',
+                            'threshold': 0.5
+                        }
 }
 
 # Update and save new dictionaries
@@ -135,6 +154,6 @@ update_dict(base_dict, updates_sigmoid, '../input/sigmoid_dict.yaml')
 update_dict(base_dict, updates_epoch, '../input/epoch_dict.yaml')
 update_dict(base_dict, updates_sgd, '../input/sgd_dict.yaml')
 update_dict(base_dict, updates_val_steps, '../input/val_dict.yaml')
-update_date(base_dict, updates_transfer_learning, '../input/base_tl_dict.yaml')
+update_dict(base_dict, updates_transfer_learning, '../input/base_tf_dict.yaml')
 
 print("Dictionaries updated and saved.")
