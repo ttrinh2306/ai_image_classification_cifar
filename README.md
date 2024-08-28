@@ -54,10 +54,6 @@ pip install -r requirements.txt
 
 The trained models were evaluated based on accuracy, loss, precision, recall, and F1-score. Detailed performance metrics for each model are included in the final notebook output, along with visualizations comparing their performance.
 
-## Future Work 
-
-- Grad-CAM (?)
-
 ## References
 
 Real images: Krizhevsky, A., & Hinton, G. (2009). Learning multiple layers of features from tiny images.
