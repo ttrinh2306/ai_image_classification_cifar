@@ -20,6 +20,17 @@ conv_layers:
 dense_layers:
   activation: relu
   units: 512
+fine_tuning:
+  fine_tune_at: 100
+  fine_tune_epochs: 10
+  learning_rate: 0.001
+  loss: BinaryCrossentropy
+  metrics:
+    name: BinaryAccuracy
+    params:
+      name: accuracy
+      threshold: 0.5
+  optimizer: RMSprop
 generators:
   fill_mode: nearest
   height_shift_range: 0.2
@@ -32,9 +43,11 @@ info:
   classes:
   - REAL
   - FAKE
-  history_filepath: ../output/history_cifake_epoch.pkl
-  model_filepath: ../output/cifake_epoch.h5
-  model_name: epoch
+  finetune_filepath: ../output/cifake_tf_ft.h5
+  finetune_history_filepath: ../output/history_cifake_tf_ft.pkl
+  history_filepath: ../output/history_cifake_tf.pkl
+  model_filepath: ../output/cifake_tf.h5
+  model_name: tf
   test_dir: ../input/images/test
   train_dir: ../input/images/train
   validation_dir: ../input/images/validation
@@ -44,7 +57,7 @@ maxpool_layers:
   - 2
 model:
   dropout: 0.5
-  epochs: 10
+  epochs: 20
   loss: categorical_crossentropy
   metrics:
   - accuracy
@@ -59,3 +72,13 @@ preprocess:
   resize:
   - 224
   - 224
+transfer_learning:
+  initial_epochs: 10
+  learning_rate: 0.001
+  loss: BinaryCrossentropy
+  metrics:
+    name: BinaryAccuracy
+    params:
+      name: accuracy
+      threshold: 0.5
+  optimizer: Adam

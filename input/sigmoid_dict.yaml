@@ -32,9 +32,9 @@ info:
   classes:
   - REAL
   - FAKE
-  history_filepath: ../output/history_cifake_base.pkl
-  model_filepath: ../output/cifake_base.h5
-  model_name: base
+  history_filepath: ../output/history_cifake_sigmoid.pkl
+  model_filepath: ../output/cifake_sigmoid.h5
+  model_name: sigmoid
   test_dir: ../input/images/test
   train_dir: ../input/images/train
   validation_dir: ../input/images/validation
@@ -49,8 +49,13 @@ model:
   metrics:
   - accuracy
   optimizer: adam
-  steps_per_epoch: 100
-  validation_steps: 50
+  steps_per_epoch: 25
+  validation_steps: 23
 output_layer:
   activation: softmax
   units: 2
+preprocess:
+  normalize: 255
+  resize:
+  - 224
+  - 224

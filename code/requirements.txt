@@ -1,0 +1,26 @@
+# Basic Data Handling and Scientific Libraries
+numpy==1.26.4
+pandas==2.1.4
+
+# TensorFlow and Keras for Deep Learning
+tensorflow==2.17.0
+keras==3.4.1
+
+# Scikit-learn for Data Preprocessing and Metrics
+scikit-learn==1.3.2
+
+# Image Handling Libraries
+Pillow==10.4.0
+
+# Fastdownload for Efficient Downloading
+fastdownload==0.0.7
+
+# Visualization
+matplotlib==3.9.2
+seaborn==0.13.1
+
+# YAML for Configuration Files
+PyYAML==6.0.2
+
+#Others
+#mlflow==2.16.0

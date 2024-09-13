@@ -1,5 +1,5 @@
 conv_layers:
-- activation: sigmoid
+- activation: relu
   filters: 32
   input_shape:
   - 224
@@ -8,7 +8,7 @@ conv_layers:
   kernel_size:
   - 3
   - 3
-- activation: sigmoid
+- activation: relu
   filters: 32
   input_shape:
   - 224
@@ -32,9 +32,9 @@ info:
   classes:
   - REAL
   - FAKE
-  history_filepath: ../output/history_cifake_base.pkl
-  model_filepath: ../output/cifake_base.h5
-  model_name: base
+  history_filepath: ../output/history_cifake_val.pkl
+  model_filepath: ../output/cifake_val.h5
+  model_name: val
   test_dir: ../input/images/test
   train_dir: ../input/images/train
   validation_dir: ../input/images/validation
@@ -44,13 +44,18 @@ maxpool_layers:
   - 2
 model:
   dropout: 0.5
-  epochs: 30
+  epochs: 20
   loss: categorical_crossentropy
   metrics:
   - accuracy
-  optimizer: SGD
-  steps_per_epoch: 100
-  validation_steps: 100
+  optimizer: adam
+  steps_per_epoch: 25
+  validation_steps: 10
 output_layer:
   activation: softmax
   units: 2
+preprocess:
+  normalize: 255
+  resize:
+  - 224
+  - 224

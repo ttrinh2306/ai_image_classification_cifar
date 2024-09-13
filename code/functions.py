@@ -120,3 +120,18 @@ def plot_histories(metrics, histories, history_names):
         plt.ylabel(metric.capitalize())
         plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         fig.show()
+
+#%%Function to log to mlflow
+def log_mlflow(run_name, params=None, metrics=None, artifacts=None):
+    with mlflow.start_run(run_name=run_name):
+        if params:
+            for key, value in params.items():
+                mlflow.log_param(key, value)
+
+        if metrics:
+            for key, value in metrics.items():
+                mlflow.log_metric(key, value)
+
+        if artifacts:
+            for item in artifacts:
+                mlflow.log_artifact(item)
